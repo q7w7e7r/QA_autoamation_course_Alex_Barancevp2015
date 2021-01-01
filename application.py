@@ -3,13 +3,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 
+# Fixture
 class Application:
     def __init__(self):
         self.wd = webdriver.Chrome()
         self.vars = {}
 
     def destroy(self):
-        self.driver.quit()
+        self.wd.quit()
 
     def logout(self):
         self.wd.find_element(By.LINK_TEXT, "Logout").click()
