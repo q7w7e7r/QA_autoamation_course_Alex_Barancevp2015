@@ -13,22 +13,27 @@ class Application:
         self.wd.quit()
 
     def logout(self):
+        wd = self.wd
         self.wd.find_element(By.LINK_TEXT, "Logout").click()
 
-    def open_group_page(self):
-        self.wd.find_element(By.LINK_TEXT, "groups").click()
-
     def login(self, username, password):
+        wd = self.wd
         self.open_home_page()
         self.wd.find_element(By.NAME, "user").click()
         self.wd.find_element(By.NAME, "user").send_keys(username)
         self.wd.find_element(By.NAME, "pass").send_keys(password)
         self.wd.find_element(By.NAME, "pass").send_keys(Keys.ENTER)
 
+    def open_group_page(self):
+        wd = self.wd
+        self.wd.find_element(By.LINK_TEXT, "groups").click()
+
     def return_to_group_page(self):
+        wd = self.wd
         self.wd.find_element(By.LINK_TEXT, "group page").click()
 
     def create_group(self, group):
+        wd = self.wd
         self.open_group_page()
         # init group creation
         self.wd.find_element(By.NAME, "new").click()
@@ -45,4 +50,5 @@ class Application:
         self.return_to_group_page()
 
     def open_home_page(self):
+        wd = self.wd
         self.wd.get("http://localhost/addressbook/")
