@@ -12,10 +12,6 @@ class Application:
     def destroy(self):
         self.wd.quit()
 
-    def logout(self):
-        wd = self.wd
-        wd.find_element(By.LINK_TEXT, "Logout").click()
-
     def login(self, username, password):
         wd = self.wd
         self.open_home_page()
@@ -23,6 +19,10 @@ class Application:
         wd.find_element(By.NAME, "user").send_keys(username)
         wd.find_element(By.NAME, "pass").send_keys(password)
         wd.find_element(By.NAME, "pass").send_keys(Keys.ENTER)
+
+    def logout(self):
+        wd = self.wd
+        wd.find_element(By.LINK_TEXT, "Logout").click()
 
     def open_group_page(self):
         wd = self.wd
