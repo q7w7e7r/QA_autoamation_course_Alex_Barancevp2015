@@ -8,10 +8,6 @@ from fixture.group import GroupHelper
 class Application:
     def __init__(self):
         self.wd = webdriver.Chrome()
-        # Неявное ожидание указывает WebDriver опрашивать DOM в течение определенного периода времени при попытке найти
-        # любой элемент (или элементы), который не доступен сразу. Значение по умолчанию-0 (ноль).
-        # После установки неявное ожидание устанавливается на весь срок службы объекта WebDriver.
-        self.wd.implicitly_wait(5)
         self.vars = {}
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
