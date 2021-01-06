@@ -1,6 +1,6 @@
 from model.contact import Contact
 from selenium.webdriver.common.by import By
-
+import re
 
 class ContactHelper:
 
@@ -34,9 +34,16 @@ class ContactHelper:
 
     def open_contact_to_edit_by_index(self, index):
         wd = self.app.wd
-        self.app.open_home_page
+        self.app.open_home_page()
         row = wd.find_elements(By.NAME, "entry")[index]
         cell = row.find_elements(By.TAG_NAME,"td")[7]
+        cell.find_element(By.TAG_NAME, "a").click()
+
+    def open_contact_view_by_index(self, index):
+        wd = self.app.wd
+        self.app.open_home_page()
+        row = wd.find_elements(By.NAME, "entry")[index]
+        cell = row.find_elements(By.TAG_NAME,"td")[6]
         cell.find_element(By.TAG_NAME, "a").click()
 
     def get_contact_info_from_edit_page(self, index):
@@ -50,3 +57,12 @@ class ContactHelper:
         mobilephone = wd.find_element(By.NAME, "mobile").get_attribute("value")
         return Contact(firstname=firstname,lastname=lastname,id=id,homephone=homephone,
                        mobilephone=mobilephone,workphone=workphone)
+
+    def get_contact_from_view_page(self, index):
+        wd = self.app.wd
+        self.open_contact_view_by_index(index)
+        text = wd.find_element(By.ID, "content").text
+        homephone = re.search("H: (.*)",text).group(1)
+        mobilephone = re.search("M: (.*)",text).group(1)
+        workphone = re.search("W: (.*)",text).group(1)
+        return Contact(homephone=homephone,mobilephone=mobilephone,workphone=workphone)
